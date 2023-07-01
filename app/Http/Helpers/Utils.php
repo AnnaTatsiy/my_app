@@ -5,6 +5,7 @@ namespace App\Http\Helpers;
 class Utils
 {
 
+    //кол-во генерируемых записей в таблицах
     public static int $count_customers = 100;
     public static int $count_coaches = 20;
     public static int $count_gyms = 8;
@@ -17,6 +18,7 @@ class Utils
         "Артёмов", "Давидов", "Арсентьев", "Маратов", "Даниилов",
         "Егоров", "Вадимов", "Сергеев"];
 
+    // массив типы тренировок
     public static array $workout_types = [
         ['title'=>"Аэробика"],
         ['title'=>"Кикбоксинг"],
@@ -35,8 +37,7 @@ class Utils
     ];
 
     //генератор случайной даты в диапазон
-    public static function randomDate($start_date, $end_date): string
-    {
+    public static function randomDate($start_date, $end_date): string {
         // Convert to timetamps
         $min = strtotime($start_date);
         $max = strtotime($end_date);
@@ -49,30 +50,40 @@ class Utils
     }
 
     //генератор случайной даты в диапазон (первый параметр дата, второй секунды)
-    public static function randomDateBySeconds($start_date, $max): string
-    {
+    public static function randomDateBySeconds($start_date, $max): string {
         // Convert to timetamps
         $min = strtotime($start_date);
 
-        // Generate random number using above bounds
-        $val = rand($min, $max);
-
-        // Convert back to desired date format
+        $val = rand($min, $min+$max);
         return date('Y-m-d', $val);
     }
 
     //Прибавить к дате месяцы
-    public static function incMonths($start_date, $count) : string
-    {
+    public static function incMonths($start_date, $count) : string {
         return date("Y-m-d", strtotime("+".$count." month", strtotime($start_date)));
     }
 
-
+    // типы безлимит абонементов (добавление и изменение данных не будет)
     public static array $subscription_types = [
         ['title' => 'Простой', 'spa' => false, 'pool' => false, 'group' => false],
         ['title' => 'Простой+', 'spa' => false, 'pool' => false, 'group' => true],
         ['title' => 'Умный', 'spa' => false, 'pool' => true, 'group' => true],
         ['title' => 'Все включено', 'spa' => true, 'pool' => true, 'group' => true]
     ];
+
+    //регистрирует клинта на тренировки с тренером
+    public static function singUpPersonalWorkout(&$arr_sing_personal, $date, $faker, $customer_id): void {
+
+        // записываем клиента на 8 персональных тренировок
+        for ($j = 1; $j <=8; $j++){
+
+            //клиент может купить перс тренировки на месяц, поэтому генерирую дату от начало открытия абонемента + месяц
+            $arr_sing_personal[] = ['date_begin'=> Utils::randomDateBySeconds($date, 2419200),
+                'time_begin'=> str_pad(rand(9,20), 2, 0, STR_PAD_LEFT).':00', // время начала тренировки
+                'coach_id'=> $faker->numberBetween(1, Utils::$count_coaches), // тренер
+                'customer_id' =>$customer_id // клиент
+            ];
+        }
+    }
 
 }
