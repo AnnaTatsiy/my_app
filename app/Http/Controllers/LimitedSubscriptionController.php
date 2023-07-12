@@ -13,4 +13,10 @@ class LimitedSubscriptionController extends Controller
     public function limitedSubscriptions(): JsonResponse{
         return response()->json(LimitedSubscription::with('customer', 'limited_price_list')->get());
     }
+
+    //Сторона Администратора: купленные тренировки данного клиента.
+    public function selectLimitedSubscriptionsByCustomer(Request $request): JsonResponse{
+        $id = $request->input('customer');
+        return response()->json(LimitedSubscription::with( 'limited_price_list', 'coach')->where('customer_id', '=', $id)->get());
+    }
 }

@@ -18,9 +18,19 @@ Route::get('/', function () {
 
 // получить все записи (вывод всех тренеров)
 Route::get('/coaches/all', [CoachController::class, 'coaches']);
+// сохранить тренера в бд
+Route::post('/coaches/add', [CoachController::class, 'addCoach']);
+// редактирование тренера в бд
+Route::post('/coaches/edit', [CoachController::class, 'editCoach']);
 
 // получить все записи (вывод всех клиентов)
 Route::get('/customers/all', [CustomerController::class, 'customers']);
+// сохранить клиента в бд
+Route::post('/customers/add', [CustomerController::class, 'addCustomer']);
+// редактирование клиента в бд
+Route::post('/customers/edit', [CustomerController::class, 'editCustomer']);
+// поиск клиента по серии-номеру паспорта
+Route::post('/customers/select-customers-by-passport', [CustomerController::class, 'getCustomersByPassport']);
 
 // получить все записи (вывод всех групповых тренировок)
 Route::get('/group-workouts/all', [GroupWorkoutController::class, 'groupWorkouts']);
@@ -32,7 +42,7 @@ Route::get('/limited-price-lists/all', [LimitedPriceListController::class, 'limi
 Route::get('/limited-subscriptions/all', [LimitedSubscriptionController::class, 'limitedSubscriptions']);
 
 // вывести расписание групповых тренировок
-Route::get('/schedules/all', [ScheduleController::class, 'schedules']);
+Route::get('/schedules/all', [ScheduleController::class, 'schedulesGetAll']);
 
 // получить все записи на групповые тренировки
 Route::get('/sign-up-group-workouts/all', [SignUpGroupWorkoutController::class, 'signUpGroupWorkouts']);
@@ -45,3 +55,10 @@ Route::get('/unlimited-price-lists/all', [UnlimitedPriceListController::class, '
 
 // получить все записи (вывести все подписки на безлимит абонемент)
 Route::get('/unlimited-subscriptions/all', [UnlimitedSubscriptionController::class, 'unlimitedSubscriptions']);
+
+// Сторона Администратора: безлимит абонементы данного клиента.
+Route::post('/unlimited-subscriptions/select-unlimited-subscriptions-by-customer', [UnlimitedSubscriptionController::class, 'selectUnlimitedSubscriptionsByCustomer']);
+
+// Сторона Администратора: купленные тренировки данного клиента.
+Route::post('/limited-subscriptions/select-limited-subscriptions-by-customer', [LimitedSubscriptionController::class, 'selectLimitedSubscriptionsByCustomer']);
+

@@ -2,6 +2,9 @@
 
 namespace App\Http\Helpers;
 
+use App\Models\Coach;
+use Illuminate\Http\Request;
+
 class Utils
 {
 
