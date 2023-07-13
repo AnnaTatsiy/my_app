@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
     // получить все записи (вывод всех клиентов)
-    public function customers(): JsonResponse{
+    public function customersAll(): JsonResponse{
         return response()->json(Customer::all());
+    }
+
+    // получить все записи (вывод всех клиентов) постранично
+    public function customers(): JsonResponse{
+        return response()->json(Customer::paginate(12));
     }
 
     // поиск клиента по серии-номеру паспорта

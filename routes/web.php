@@ -17,6 +17,8 @@ Route::get('/', function () {
 });
 
 // получить все записи (вывод всех тренеров)
+Route::get('/coaches/get-all', [CoachController::class, 'coachesAll']);
+// получить все записи (вывод всех тренеров) постранично
 Route::get('/coaches/all', [CoachController::class, 'coaches']);
 // сохранить тренера в бд
 Route::post('/coaches/add', [CoachController::class, 'addCoach']);
@@ -24,6 +26,8 @@ Route::post('/coaches/add', [CoachController::class, 'addCoach']);
 Route::post('/coaches/edit', [CoachController::class, 'editCoach']);
 
 // получить все записи (вывод всех клиентов)
+Route::get('/customers/get-all', [CustomerController::class, 'customersAll']);
+// получить все записи (вывод всех клиентов) постранично
 Route::get('/customers/all', [CustomerController::class, 'customers']);
 // сохранить клиента в бд
 Route::post('/customers/add', [CustomerController::class, 'addCustomer']);

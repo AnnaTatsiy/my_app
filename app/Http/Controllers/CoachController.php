@@ -10,8 +10,13 @@ use Illuminate\Http\Request;
 class CoachController extends Controller {
 
     // получить все записи (вывод всех тренеров)
-    public function coaches(): JsonResponse{
+    public function coachesAll(): JsonResponse{
         return response()->json(Coach::all());
+    }
+
+    // получить все записи (вывод всех тренеров) постранично
+    public function coaches(): JsonResponse{
+        return response()->json(Coach::paginate(12));
     }
 
     //добавление тренера
