@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coach;
-use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Controllers\LimitedPriceListController;
 
 class CoachController extends Controller {
 
@@ -44,6 +44,8 @@ class CoachController extends Controller {
         $coach->registration = $request->input('registration');
 
         $coach->save();
+
+        LimitedPriceListController::addLimitedPriceList($coach->id);
 
         return $coach;
     }

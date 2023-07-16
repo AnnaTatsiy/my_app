@@ -10,8 +10,13 @@ use Illuminate\Http\Request;
 class LimitedSubscriptionController extends Controller
 {
     // получить все записи (вывести все подписки на тренировки с тренерами)
+    public function getLimitedSubscriptions(): JsonResponse{
+        return response()->json(LimitedSubscription::with('customer', 'limited_price_list', 'coach')->orderByDesc('open')->get());
+    }
+
+    // получить все записи (вывести все подписки на тренировки с тренерами) постранично
     public function limitedSubscriptions(): JsonResponse{
-        return response()->json(LimitedSubscription::with('customer', 'limited_price_list')->get());
+        return response()->json(LimitedSubscription::with('customer', 'limited_price_list', 'coach')->orderByDesc('open')->paginate(12));
     }
 
     //Сторона Администратора: купленные тренировки данного клиента.

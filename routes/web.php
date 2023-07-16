@@ -39,10 +39,14 @@ Route::post('/customers/select-customers-by-passport', [CustomerController::clas
 // получить все записи (вывод всех групповых тренировок)
 Route::get('/group-workouts/all', [GroupWorkoutController::class, 'groupWorkouts']);
 
-// получить все записи (вывести прайс лист на тренировки с тренерами)
+// получить все записи (вывести прайс лист на тренировки с тренерами) постранично
 Route::get('/limited-price-lists/all', [LimitedPriceListController::class, 'limitedPriceLists']);
+// получить все записи (вывести прайс лист на тренировки с тренерами)
+Route::get('/limited-price-lists/get-all', [LimitedPriceListController::class, 'getLimitedPriceLists']);
 
 // получить все записи (вывести все подписки на тренировки с тренерами)
+Route::get('/limited-subscriptions/get-all', [LimitedSubscriptionController::class, 'getLimitedSubscriptions']);
+// получить все записи (вывести все подписки на тренировки с тренерами) постранично
 Route::get('/limited-subscriptions/all', [LimitedSubscriptionController::class, 'limitedSubscriptions']);
 
 // вывести расписание групповых тренировок
@@ -58,8 +62,9 @@ Route::get('/sign-up-personal-workouts/all', [SignUpPersonalWorkoutController::c
 Route::get('/unlimited-price-lists/all', [UnlimitedPriceListController::class, 'unlimitedPriceLists']);
 
 // получить все записи (вывести все подписки на безлимит абонемент)
+Route::get('/unlimited-subscriptions/get-all', [UnlimitedSubscriptionController::class, 'getAllUnlimitedSubscriptions']);
+// получить все записи (вывести все подписки на безлимит абонемент) постранично
 Route::get('/unlimited-subscriptions/all', [UnlimitedSubscriptionController::class, 'unlimitedSubscriptions']);
-
 // Сторона Администратора: безлимит абонементы данного клиента.
 Route::post('/unlimited-subscriptions/select-unlimited-subscriptions-by-customer', [UnlimitedSubscriptionController::class, 'selectUnlimitedSubscriptionsByCustomer']);
 
